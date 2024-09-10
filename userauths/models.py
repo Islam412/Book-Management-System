@@ -25,7 +25,8 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=200, null=True ,blank=True)
     username = models.CharField(max_length=200, null=True ,blank=True)
     phone = models.CharField(max_length=200, null=True ,blank=True)
-    
+    adress = models.CharField(max_length=200 ,null=True ,blank=True)
+
     
     def __str__(self):
         return self.user.username
