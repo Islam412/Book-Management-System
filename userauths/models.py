@@ -17,3 +17,17 @@ class User(AbstractUser):
 
     def __str__(self):
         return str(self.username)
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    cover_images = models.ImageField(upload_to='Images_Profile', null=True, blank=True)
+    first_name = models.CharField(max_length=200, null=True ,blank=True)
+    last_name = models.CharField(max_length=200, null=True ,blank=True)
+    username = models.CharField(max_length=200, null=True ,blank=True)
+    phone = models.CharField(max_length=200, null=True ,blank=True)
+    
+    
+    def __str__(self):
+        return self.user.username
+    
+
