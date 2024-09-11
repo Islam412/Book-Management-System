@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     # Custom apps
     'userauths',
     'book',
+    
+    # Third party apps
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
