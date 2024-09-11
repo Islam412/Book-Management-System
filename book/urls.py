@@ -1,11 +1,11 @@
 from django.urls import path
 
-from .views import views
+from .views import home
 
 
-app_name = 'userauths'
+app_name = 'book'
 
 
 urlpatterns = [
-    path('', views.home, name='home')
+    path('', home, name='home')
 ]
