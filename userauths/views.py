@@ -65,3 +65,12 @@ class LoginView(TemplateView):
         if request.user.is_authenticated:
             return redirect('book:home')
         return super().get(request, *args, **kwargs)
+    
+
+class LogoutView(LoginRequiredMixin, TemplateView):
+    template_name = 'userauths/logout.html'
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        messages.success(request, 'You have been logged out')
+        return redirect("userauths:sign-up")
