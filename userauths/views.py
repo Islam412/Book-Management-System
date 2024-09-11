@@ -38,3 +38,30 @@ class RegisterView(FormView):
             messages.warning(request, f"Hey {request.user.username}, you are already logged in")
             return redirect(self.success_url)
         return super().get(request, *args, **kwargs)
+    
+
+class LoginView(TemplateView):
+    template_name = 'userauths/login.html'
+
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, "You are Logged In")
+                return redirect('book:home')
+            else:
+                messages.error(request, 'Username or password does not exist.')
+        except User.DoesNotExist:
+            messages.error(request, 'User does not exist')
+
+        return redirect('userauths:login')  # Redirect back to login on failure
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('book:home')
+        return super().get(request, *args, **kwargs)
