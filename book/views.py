@@ -6,7 +6,17 @@ from .forms import BookForm
 
 @login_required
 def home(request):
-    return render(request, 'book/home.html')
+    query = request.GET.get('search', '')
+    book = Book.objects.filter(
+        title__icontains=query
+    ) | Book.objects.filter(
+        author__icontains=query
+    )
+    context = {
+        'book': book,
+        'query': query
+    }
+    return render(request, 'book/home.html',context)
 
 
 @login_required
