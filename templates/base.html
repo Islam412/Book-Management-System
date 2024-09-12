@@ -1,5 +1,5 @@
 {% load static %}
-{% load bootstrap5 %}
+{% load django_bootstrap5 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
@@ -9,25 +9,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
         .navbar {
-            background-color: #007bff;
+            background-color: #343a40;
+            transition: background-color 0.3s ease;
+        }
+        .navbar:hover {
+            background-color: #495057;
         }
         .navbar-brand {
             color: #ffffff;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        .navbar-brand:hover {
+            color: #adb5bd;
         }
         .navbar-nav .nav-link {
             color: #ffffff;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
         .navbar-nav .nav-link.active {
-            color: #e2e6ea;
+            color: #d1d1d1;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #adb5bd;
+        }
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+            background-color: #ffffff;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .dropdown-toggle::after {
+            display: none; /* Hide the default dropdown indicator */
+        }
+        .user-img {
+            width: 40px; /* Set width to desired size */
+            height: 40px; /* Set height to desired size */
+            border-radius: 50%; /* Makes the image circular */
+            object-fit: cover; /* Ensures the image covers the area without distortion */
+            border: none; /* Ensure no border around the image */
+            background: transparent; /* Ensure no background color */
+            box-shadow: none; /* Remove any shadow if present */
+            transition: transform 0.3s ease;
+        }
+        .user-img:hover {
+            transform: scale(1.1);
+        }
+        .dropdown-menu {
+            min-width: 150px; /* Adjust width if needed */
+        }
+        .dropdown-item {
+            color: #343a40;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dropdown-item:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+        .form-control {
+            border-radius: 20px;
+            border-color: #ced4da;
+            transition: border-color 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
+        .btn-outline-light {
+            color: #ffffff;
+            border-color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn-outline-light:hover {
+            background-color: #ffffff;
+            color: #343a40;
         }
     </style>
+    <!-- Add FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
+            <a class="navbar-brand" href="/">Brand</a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -35,30 +117,29 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'students:add_student' %}">Add Book</a>
+                        <a class="nav-link" href="#">Add Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'students:add_student' %}">Brofile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'userauths:sign-out' %}">Log out</a>
+                        <a class="nav-link" href="#">Profile</a>
                     </li>
                 </ul>
- 
                 
-                <!--search-->
-                <form class="d-flex ms-auto" role="search" method="get" action="{% url 'students:student' %}">
+                <!-- Search Form -->
+                <form class="d-flex ms-auto" role="search" method="get" action="">
                     <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ query }}">
                     <button class="btn btn-outline-light" type="submit">Search</button>
                 </form>
-                
-                <ul style="display: none;">
-                    {% for student in students %}
-                        <li>{{ student.first_name }} {{ student.last_name }} - Age: {{ student.age }}</li>
-                    {% empty %}
-                        <li>No students found.</li>
-                    {% endfor %}
-                </ul>
+
+                <!-- Profile Dropdown -->
+                <div class="dropdown ms-3">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="" alt="User" class="user-img">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'userauths:sign-out' %}">Logout</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
@@ -66,6 +147,8 @@
     {% block body %}
         
     {% endblock body %}
+    
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-        
