@@ -1,0 +1,90 @@
+
+
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Book Details</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>Book Title:</strong>
+                </div>
+                <div class="col-md-8">
+                    {{ book.title }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>Author:</strong>
+                </div>
+                <div class="col-md-8">
+                    {{ book.author }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>Pages:</strong>
+                </div>
+                <div class="col-md-8">
+                    {{ book.pages }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>Price:</strong>
+                </div>
+                <div class="col-md-8">
+                    {{ book.price }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>Status:</strong>
+                </div>
+                <div class="col-md-8">
+                    {{ book.get_status_display }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>Description:</strong>
+                </div>
+                <div class="col-md-8">
+                    {{ book.descripition }}
+                </div>
+            </div>
+
+            {% if book.photo_book %}
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>Book Image:</strong>
+                </div>
+                <div class="col-md-8">
+                    <img src="{{ book.photo_book.url }}" alt="Book Image" class="img-fluid rounded border" style="max-width: 300px;">
+                </div>
+            </div>
+            {% endif %}
+
+            {% if book.photo_author %}
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>Author Image:</strong>
+                </div>
+                <div class="col-md-8">
+                    <img src="{{ book.photo_author.url }}" alt="Author Image" class="img-fluid rounded border" style="max-width: 150px;">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="card-footer text-end bg-light">
+            <a href="{% url 'book:edit_book' book.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'book:delete_book' book.pk %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'book:book' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

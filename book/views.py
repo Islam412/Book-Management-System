@@ -52,3 +52,11 @@ def delete_book(request, pk):
         messages.success(request, 'Book deleted successfully!')
         return redirect('book:book')
     return render(request, 'book/delete_book.html', {'book': book})
+
+@login_required
+def book_details(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    context = {
+        'book': book
+    }
+    return render(request, 'book/book_detail.html', context)
