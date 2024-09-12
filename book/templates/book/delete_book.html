@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        button {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #c0392b;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Book</h1>
+        <p>Are you sure you want to delete "{{ book.title }} {{ book.title }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Confirm</button>
+            <br>
+            <a href="{% url 'book:book' %}">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
