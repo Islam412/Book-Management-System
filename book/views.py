@@ -11,3 +11,9 @@ from .forms import BookForm
 @login_required
 def home(request):
     return render(request, 'book/home.html')
+
+
+class BookListView(ListView):
+    model = Book
+    template_name = 'book/book_list.html'
+    context_object_name = 'books'
