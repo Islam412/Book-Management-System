@@ -136,7 +136,7 @@
                 <!-- Profile Dropdown -->
                 <div class="dropdown">
                     <button class="btn-drob" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{% static 'assets/img/logo.png' %}" alt="User" class="user-img">
+                        <img src="{{ user.profile.cover_images.url }}" alt="User" class="user-img">
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Action</a></li>

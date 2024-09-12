@@ -1,3 +1,5 @@
+
+'''
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -60,3 +62,73 @@ def book_details(request, pk):
         'book': book
     }
     return render(request, 'book/book_detail.html', context)
+    
+'''
+
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+
+from .models import Book
+from .forms import BookForm
+
+class BookListView(LoginRequiredMixin, ListView):
+    model = Book
+    template_name = 'book/home.html'
+    context_object_name = 'books'
+    
+    def get_queryset(self):
+        query = self.request.GET.get('search', '')
+        return Book.objects.filter(
+            title__icontains=query
+        ) | Book.objects.filter(
+            author__icontains=query
+        )
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('search', '')
+        return context
+
+class BookCreateView(LoginRequiredMixin, CreateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'book/add_book.html'
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Book added successfully!')
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('book:book')
+
+class BookUpdateView(LoginRequiredMixin, UpdateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'book/edit_book.html'
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Book updated successfully!')
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('book:book')
+
+class BookDeleteView(LoginRequiredMixin, DeleteView):
+    model = Book
+    template_name = 'book/delete_book.html'
+    
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Book deleted successfully!')
+        return super().delete(request, *args, **kwargs)
+    
+    def get_success_url(self):
+        return reverse_lazy('book:book')
+
+class BookDetailView(LoginRequiredMixin, DetailView):
+    model = Book
+    template_name = 'book/book_detail.html'
+    context_object_name = 'book'
+
+

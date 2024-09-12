@@ -15,7 +15,7 @@ class UserCustomAdmin(admin.ModelAdmin):
     filter_horizontal = ('user_permissions',)
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'first_name', 'last_name', 'verified']
+    list_display = ['user', 'phone', 'verified']
     list_editable = ['verified']
     search_fields = ['user__username', 'phone', 'address']
     list_filter = ['verified']

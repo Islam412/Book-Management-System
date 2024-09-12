@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ profile.user.username }}</h1>
+    <p>Email: {{ profile.user.email }}</p>
+    <p>Phone: {{ profile.phone }}</p>
+    <p>Address: {{ profile.address }}</p>
+    {% if profile.cover_image %}
+        <img src="{{ profile.cover_image.url }}" alt="Cover Image">
+    {% endif %}
+{% endblock %}

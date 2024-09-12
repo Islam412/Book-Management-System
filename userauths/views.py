@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
+
 
 from userauths.models import User , Profile
 from userauths.forms import UserRegisterForm
@@ -78,7 +80,7 @@ class LogoutView(LoginRequiredMixin, TemplateView):
         messages.success(request, 'You have been logged out')
         return redirect("userauths:sign-up")
     
-    
+
 
 class ProfileView(DetailView):
     model = Profile
@@ -86,4 +88,5 @@ class ProfileView(DetailView):
     context_object_name = 'profile'
 
     def get_object(self, queryset=None):
-        return self.request.user.profile
+        return get_object_or_404(Profile, user=self.request.user)
+
