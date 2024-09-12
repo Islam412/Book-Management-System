@@ -7,9 +7,9 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         
-        {% comment %} <div class="mb-3">
+        <div class="mb-3">
             {{ form.non_field_errors }}
-        </div> {% endcomment %}
+        </div>
         
         {% for field in form %}
             <div class="mb-3">

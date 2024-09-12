@@ -1,13 +1,16 @@
 from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from userauths.models import User
+from userauths.models import User , Profile
 from userauths.forms import UserRegisterForm
+
+
 
 
 class RegisterView(FormView):
@@ -74,3 +77,13 @@ class LogoutView(LoginRequiredMixin, TemplateView):
         logout(request)
         messages.success(request, 'You have been logged out')
         return redirect("userauths:sign-up")
+    
+    
+
+class ProfileView(DetailView):
+    model = Profile
+    template_name = 'userauths/profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
