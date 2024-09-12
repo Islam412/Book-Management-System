@@ -20,3 +20,16 @@ def add_book(request):
     else:
         form = BookForm()
     return render(request, 'book/add_book.html', {'form': form})
+
+@login_required
+def edit_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == 'POST':
+        form = BookForm(request.POST, request.FILES, instance=book)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Book updated successfully!')
+            return redirect('book:book_list')
+    else:
+        form = BookForm(instance=book)
+    return render(request, 'book/edit_book.html', {'form': form})
