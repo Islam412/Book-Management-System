@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block body %}
+    <h1>{{ book.title }}</h1>
+    <p>Author: {{ book.author }}</p>
+    <p>Pages: {{ book.pages }}</p>
+    <p>Price: {{ book.price }}</p>
+    <p>Description: {{ book.descripition }}</p>
+    <a href="{% url 'book:book-update' book.pk %}">Edit</a>
+    <a href="{% url 'book:book-delete' book.pk %}">Delete</a>
+    <a href="{% url 'book:book-list' %}">Back to list</a>
+{% endblock body %}
