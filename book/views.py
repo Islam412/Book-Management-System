@@ -22,3 +22,9 @@ class BookDetailView(DetailView):
     model = Book
     template_name = 'book/book_detail.html'
     context_object_name = 'book'
+    
+class BookCreateView(CreateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'book/create_book.html'
+    success_url = reverse_lazy('book:book-list')
