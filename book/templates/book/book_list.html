@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+  <h1>Books List</h1>
+  <a href="{% url 'book:book-create' %}">Add new book</a>
+  <ul>
+    {% for book in books %}
+      <li>
+        <a href="{% url 'book:book-detail' book.pk %}">{{ book.title }}</a>
+        <a href="{% url 'book:book-update' book.pk %}">Edit</a>
+        <a href="{% url 'book:book-delete' book.pk %}">Delete</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock body %}
