@@ -1,23 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .models import Book
 from .forms import BookForm
 
 @login_required
-def home(request):
+def book(request):
     query = request.GET.get('search', '')
-    book = Book.objects.filter(
+    books = Book.objects.filter(
         title__icontains=query
     ) | Book.objects.filter(
         author__icontains=query
     )
     context = {
-        'book': book,
+        'books': books,
         'query': query
     }
-    return render(request, 'book/home.html',context)
-
+    return render(request, 'book/home.html', context)
 
 @login_required
 def add_book(request):
@@ -26,7 +26,7 @@ def add_book(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Book added successfully!')
-            return redirect('book:book_list')
+            return redirect('book:book')
     else:
         form = BookForm()
     return render(request, 'book/add_book.html', {'form': form})
@@ -39,7 +39,7 @@ def edit_book(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Book updated successfully!')
-            return redirect('book:book_list')
+            return redirect('book:book')
     else:
         form = BookForm(instance=book)
     return render(request, 'book/edit_book.html', {'form': form})
@@ -50,5 +50,5 @@ def delete_book(request, pk):
     if request.method == 'POST':
         book.delete()
         messages.success(request, 'Book deleted successfully!')
-        return redirect('book:book_list')
+        return redirect('book:book')
     return render(request, 'book/delete_book.html', {'book': book})
