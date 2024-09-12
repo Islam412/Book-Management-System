@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+{% extends 'base_generic.html' %}
+
+  <h1>Update Book</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+  </form>
+  <a href="{% url 'book:book-list' %}">Back to list</a>
+
+{% endblock body %}
