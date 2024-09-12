@@ -13,7 +13,7 @@ from userauths.forms import UserRegisterForm
 class RegisterView(FormView):
     template_name = 'userauths/sign-up.html'
     form_class = UserRegisterForm
-    success_url = reverse_lazy('book:home')
+    success_url = reverse_lazy('book:book')
 
     def form_valid(self, form):
         user = form.save()
@@ -53,7 +53,7 @@ class LoginView(TemplateView):
             if user is not None:
                 login(request, user)
                 messages.success(request, "You are Logged In")
-                return redirect('book:home')
+                return redirect('book:book')
             else:
                 messages.error(request, 'Username or password does not exist.')
         except User.DoesNotExist:
@@ -63,7 +63,7 @@ class LoginView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('book:home')
+            return redirect('book:book')
         return super().get(request, *args, **kwargs)
     
 

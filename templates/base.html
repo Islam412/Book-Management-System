@@ -60,20 +60,20 @@
             display: none; /* Hide the default dropdown indicator */
         }
         .user-img {
-            width: 40px; /* Set width to desired size */
-            height: 40px; /* Set height to desired size */
-            border-radius: 50%; /* Makes the image circular */
-            object-fit: cover; /* Ensures the image covers the area without distortion */
-            border: none; /* Ensure no border around the image */
-            background: transparent; /* Ensure no background color */
-            box-shadow: none; /* Remove any shadow if present */
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: none;
+            background: transparent;
+            box-shadow: none;
             transition: transform 0.3s ease;
         }
         .user-img:hover {
             transform: scale(1.1);
         }
         .dropdown-menu {
-            min-width: 150px; /* Adjust width if needed */
+            min-width: 150px;
         }
         .dropdown-item {
             color: #343a40;
@@ -96,10 +96,15 @@
             color: #ffffff;
             border-color: #ffffff;
             transition: background-color 0.3s ease, color 0.3s ease;
+            border: none;
         }
         .btn-outline-light:hover {
             background-color: #ffffff;
             color: #343a40;
+        }
+        .dropdown-menu:onclick{
+            z-index: 1;
+            display: ;
         }
     </style>
     <!-- Add FontAwesome for icons -->
@@ -109,18 +114,16 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Brand</a>
+            <a class="navbar-brand" href="/">Home</a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link" href="{% url 'book:add_book' %}">Add New Book</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Add Book</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
+                        <a class="nav-link" href="{% url 'userauths:sign-out' %}">Log Out</a>
                     </li>
                 </ul>
                 
@@ -131,21 +134,36 @@
                 </form>
 
                 <!-- Profile Dropdown -->
-                <div class="dropdown ms-3">
-                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="" alt="User" class="user-img">
+                <div class="dropdown">
+                    <button class="btn-drob" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{% static 'assets/img/logo.png' %}" alt="User" class="user-img">
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="{% url 'userauths:sign-out' %}">Logout</a></li>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
+                
+{% comment %} 
+                <div class="profile">
+                    <li class="dropdown-item dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{% static 'assets/img/logo.png' %}" alt="User" class="user-img">
+                        </button>
+                        <!-- Profile Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'userauths:sign-out' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </div> {% endcomment %}
             </div>
         </div>
     </nav>
     
     {% block body %}
-        
+    <!-- Content goes here -->
     {% endblock body %}
     
     <!-- Include Bootstrap JS -->

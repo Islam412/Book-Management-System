@@ -1,12 +1,10 @@
-
-
 {% extends 'base.html' %}
 {% block body %}
 
 <div class="container mt-4">
-    <h1 class="mb-4">Book Details</h1>
+    <h1 class="mb-4 animate__animated animate__fadeIn">Book Details</h1>
 
-    <div class="card shadow-sm">
+    <div class="card shadow-sm animate__animated animate__fadeIn animate__delay-1s">
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-4">
@@ -63,7 +61,7 @@
                     <strong>Book Image:</strong>
                 </div>
                 <div class="col-md-8">
-                    <img src="{{ book.photo_book.url }}" alt="Book Image" class="img-fluid rounded border" style="max-width: 300px;">
+                    <img src="{{ book.photo_book.url }}" alt="Book Image" class="img-fluid rounded border animate__animated animate__zoomIn" style="max-width: 300px;">
                 </div>
             </div>
             {% endif %}
@@ -74,15 +72,15 @@
                     <strong>Author Image:</strong>
                 </div>
                 <div class="col-md-8">
-                    <img src="{{ book.photo_author.url }}" alt="Author Image" class="img-fluid rounded border" style="max-width: 150px;">
+                    <img src="{{ book.photo_author.url }}" alt="Author Image" class="img-fluid rounded border animate__animated animate__zoomIn" style="max-width: 300px;">
                 </div>
             </div>
             {% endif %}
         </div>
         <div class="card-footer text-end bg-light">
-            <a href="{% url 'book:edit_book' book.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'book:edit_book' book.pk %}" class="btn btn-primary">Edit Book</a>
             <a href="{% url 'book:delete_book' book.pk %}" class="btn btn-danger">Delete</a>
-            <a href="{% url 'book:book' %}" class="btn btn-secondary">Back to List</a>
+            <a href="{% url 'book:book' %}" class="btn btn-secondary">Back to Home</a>
         </div>
     </div>
 </div>

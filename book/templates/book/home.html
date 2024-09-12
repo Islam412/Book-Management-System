@@ -116,15 +116,19 @@
                 </div>
             {% endfor %} {% endcomment %}
 
-            <div class="card">
-                <a href="#"><img src="" style="width:218px; height:190px;" class="card-img-top" alt="Sample Image"></a>
-                
-                <div class="card-body">
-                    <a href="#" style="text-decoration: none;"><h5 class="card-title">Jack</h5></a>
-                    <a href="#" class="btn btn-primary">Edit Book</a>
-                    <a href="#" class="btn btn-danger">Delete</a>
+            
+            {% for book in books %}
+
+                <div class="card">
+                    <a href="{% url 'book:book_details' book.pk %}"><img src="{{ book.photo_book.url }}" style="width:218px; height:190px;" class="card-img-top" alt="Sample Image"></a>
+                    
+                    <div class="card-body">
+                        <a href="{% url 'book:book_details' book.pk %}" style="text-decoration: none;"><h5 class="card-title">{{book.title}}</h5></a>
+                        <a href="{% url 'book:edit_book' book.pk %}" class="btn btn-primary">Edit Book</a>
+                        <a href="{% url 'book:delete_book' book.pk %}" class="btn btn-danger">Delete</a>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock body %}
