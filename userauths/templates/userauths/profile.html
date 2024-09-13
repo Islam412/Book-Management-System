@@ -108,10 +108,10 @@
             <img src="{{ user.profile.cover_images.url }}" class="profile-img" alt="Cover Image">
         {% endif %}
         <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-        <p>Username: {{ user.username }}</p>
-        <p>Email: {{ user.email }}</p>
-        <p>Phone: {{ profile.phone }}</p>
-        <p>Address: {{ profile.address }}</p>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ profile.phone }}</p>
+        <p><strong>Address:</strong> {{ profile.address }}</p>
         <a href="{% url 'book:book' %}" class="btn btn-secondary">Back to Home</a>
         <a href="" class="btn btn-danger">Edit Profile</a>
     </div>
