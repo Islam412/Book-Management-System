@@ -1,11 +1,119 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            animation: fadeIn 1s ease-in;
+        }
 
-{% block content %}
-    <h1>{{ profile.user.username }}</h1>
-    <p>Email: {{ profile.user.email }}</p>
-    <p>Phone: {{ profile.phone }}</p>
-    <p>Address: {{ profile.address }}</p>
-    {% if profile.cover_image %}
-        <img src="{{ profile.cover_image.url }}" alt="Cover Image">
-    {% endif %}
-{% endblock %}
+        .container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 1s ease-out;
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            animation: zoomIn 1s ease-out;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 28px;
+            margin: 10px 0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            margin: 5px 0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-secondary {
+            background-color: #4a90e2;
+        }
+
+        .btn-secondary:hover {
+            background-color: #357abd;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: #e94e77;
+        }
+
+        .btn-danger:hover {
+            background-color: #d43f5e;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if user.profile.cover_images.url %}
+            <img src="{{ user.profile.cover_images.url }}" class="profile-img" alt="Cover Image">
+        {% endif %}
+        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Phone: {{ profile.phone }}</p>
+        <p>Address: {{ profile.address }}</p>
+        <a href="{% url 'book:book' %}" class="btn btn-secondary">Back to Home</a>
+        <a href="" class="btn btn-danger">Edit Profile</a>
+    </div>
+</body>
+</html>

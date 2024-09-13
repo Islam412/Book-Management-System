@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 
 from userauths.models import User , Profile
@@ -89,4 +90,5 @@ class ProfileView(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(Profile, user=self.request.user)
+
 
