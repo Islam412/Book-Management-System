@@ -1,17 +1,16 @@
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView ,UpdateView
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.shortcuts import redirect
+from django.shortcuts import redirect ,get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 
 from userauths.models import User , Profile
-from userauths.forms import UserRegisterForm
+from userauths.forms import UserRegisterForm , ProfileForm
 
 
 
@@ -91,7 +90,7 @@ class ProfileView(DetailView):
     def get_object(self, queryset=None):
         return get_object_or_404(Profile, user=self.request.user)
     
-
+    
 class ProfileUpdateView(UpdateView):
     model = Profile
     form_class = ProfileForm
@@ -101,8 +100,8 @@ class ProfileUpdateView(UpdateView):
     def get_object(self, queryset=None):
         return get_object_or_404(Profile, user=self.request.user)
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        return redirect('userauths:profile')
+    def get_success_url(self):
+        return reverse_lazy('userauths:profile')
+
 
 
