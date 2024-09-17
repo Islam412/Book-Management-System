@@ -103,24 +103,11 @@
 
     <!-- Product Section -->
     <div class="container">
-        <div class="grid-container">
-            {% comment %} {% for student in students %}
-                <div class="card">
-                    <a href="{% url 'students:student_detail' student.pk %}"><img src="{{ student.img.url }}" style="width:218px ; height:190px" class="card-img-top" alt="{{ student.first_name }}"></a>
-                    
-                    <div class="card-body">
-                        <a href="{% url 'students:student_detail' student.pk %}" style="text-decoration: none;"><h5 class="card-title">{{ student.first_name }} {{ student.last_name }}</h5></a>
-                        <a href="{% url 'students:edit_student' student.pk %}" {{ student.first_name }} {{ student.last_name }} class="btn btn-primary">Edit</a>
-                        <a href="{% url 'students:delete_student' student.pk %}" class="btn btn-danger">Delete</a>
-                    </div>
-                </div>
-            {% endfor %} {% endcomment %}
-
-            
+        <div class="grid-container">            
             {% for book in books %}
 
                 <div class="card">
-                    <a href="{% url 'book:book_details' book.pk %}"><img src="{{ book.photo_book.url }}" style="width:218px; height:190px;" class="card-img-top" alt="Sample Image"></a>
+                    <a href="{% url 'book:book_details' book.pk %}"><img src="{{ book.photo_book.url }}" style="width:306.9px; height:200px;" class="card-img-top" alt="Sample Image"></a>
                     
                     <div class="card-body">
                         <a href="{% url 'book:book_details' book.pk %}" style="text-decoration: none;"><h5 class="card-title">{{book.title}}</h5></a>
