@@ -81,7 +81,6 @@ class LogoutView(LoginRequiredMixin, TemplateView):
         return redirect("userauths:sign-up")
     
 
-
 class ProfileView(DetailView):
     model = Profile
     template_name = 'userauths/profile.html'
@@ -89,8 +88,9 @@ class ProfileView(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(Profile, user=self.request.user)
-    
-    
+
+
+
 
 class ProfileUpdateView(UpdateView):
     model = Profile
@@ -101,12 +101,7 @@ class ProfileUpdateView(UpdateView):
     def get_object(self, queryset=None):
         return get_object_or_404(Profile, user=self.request.user)
 
-    def form_valid(self, form):
-        profile = form.save(commit=False)
-        profile.user = self.request.user
-        profile.save()
-        return super().form_valid(form)
-
     def get_success_url(self):
         return reverse_lazy('userauths:profile')
+
 
