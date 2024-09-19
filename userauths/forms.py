@@ -22,11 +22,26 @@ class UserRegisterForm(UserCreationForm):
 
 
 class ProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=100, required=True)
+    last_name = forms.CharField(max_length=100, required=True)
+    username = forms.CharField(max_length=100, required=True)
+    email = forms.EmailField(required=True)
+
     class Meta:
         model = Profile
-        fields = ['cover_images', 'phone', 'address']
+        fields = ['first_name', 'last_name', 'username', 'email', 'cover_images', 'phone', 'address']
         widgets = {
             'cover_images': forms.FileInput(attrs={'class': 'form-control'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
         }
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
