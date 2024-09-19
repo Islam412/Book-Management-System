@@ -11,39 +11,61 @@
     <title>Student</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
             margin: 0;
             padding: 0;
+            animation: fade-in 0.5s ease-out forwards;
         }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         .navbar {
             background-color: #343a40;
             transition: background-color 0.3s ease;
         }
+
         .navbar:hover {
             background-color: #495057;
         }
+
         .navbar-brand {
             color: #ffffff;
             font-weight: 700;
             transition: color 0.3s ease;
         }
+
         .navbar-brand:hover {
             color: #adb5bd;
         }
+
         .navbar-nav .nav-link {
             color: #ffffff;
             font-weight: 500;
             transition: color 0.3s ease;
         }
+
         .navbar-nav .nav-link.active {
             color: #d1d1d1;
         }
+
         .navbar-nav .nav-link:hover {
             color: #adb5bd;
+            transform: scale(1.05);
         }
+
         .dropdown-menu {
             right: 0;
             left: auto;
@@ -52,13 +74,16 @@
             opacity: 0;
             transform: translateY(-10px);
         }
+
         .dropdown-menu.show {
             opacity: 1;
             transform: translateY(0);
         }
+
         .dropdown-toggle::after {
             display: none; /* Hide the default dropdown indicator */
         }
+
         .user-img {
             width: 40px;
             height: 40px;
@@ -69,46 +94,57 @@
             box-shadow: none;
             transition: transform 0.3s ease;
         }
+
         .user-img:hover {
             transform: scale(1.1);
         }
+
         .dropdown-menu {
             min-width: 150px;
         }
+
         .dropdown-item {
             color: #343a40;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         .dropdown-item:hover {
             background-color: #e9ecef;
             color: #007bff;
         }
+
         .form-control {
             border-radius: 20px;
             border-color: #ced4da;
             transition: border-color 0.3s ease;
         }
+
         .form-control:focus {
             border-color: #007bff;
             box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
         }
+
         .btn-outline-light {
             color: #ffffff;
             border-color: #ffffff;
             transition: background-color 0.3s ease, color 0.3s ease;
             border: none;
         }
+
         .btn-outline-light:hover {
             background-color: #ffffff;
             color: #343a40;
         }
-        .dropdown-menu:onclick{
-            z-index: 1;
-            display: ;
+
+        .btn {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
         }
     </style>
-    <!-- Add FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -121,11 +157,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'book:add_book' %}">Add New Book</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'userauths:sign-out' %}">Log Out</a>
                     </li>
                 </ul>
+
+                <!-- Profile Dropdown -->
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ user.profile.cover_images.url }}" alt="User" class="user-img">
+                </button>
+                <div class="dropdown">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="{% url 'userauths:profile' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'userauths:profile-edit' %}">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="">API</a></li>
+                        <li><a class="dropdown-item" href="{% url 'userauths:sign-out' %}">Logout</a></li>
+                    </ul>
+                </div>
                 
                 <!-- Search Form -->
                 <form class="d-flex ms-auto" role="search" method="get" action="">
@@ -133,31 +181,6 @@
                     <button class="btn btn-outline-light" type="submit">Search</button>
                 </form>
 
-                <!-- Profile Dropdown -->
-                <div class="dropdown">
-                    <button class="btn-drob" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ user.profile.cover_images.url }}" alt="User" class="user-img">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </div>
-                
-                {% comment %} 
-                <div class="profile">
-                    <li class="dropdown-item dropdown">
-                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{% static 'assets/img/logo.png' %}" alt="User" class="user-img">
-                        </button>
-                        <!-- Profile Dropdown Menu -->
-                        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="{% url 'userauths:sign-out' %}">Logout</a></li>
-                        </ul>
-                    </li>
-                </div> {% endcomment %}
             </div>
         </div>
     </nav>
