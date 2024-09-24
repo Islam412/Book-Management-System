@@ -15,7 +15,7 @@ urlpatterns = [
 '''
 
 # urls off class based view
-from .views import BookListView, BookCreateView, BookUpdateView, BookDeleteView, BookDetailView
+from .views import BookListView, BookCreateView, BookUpdateView, BookDeleteView, BookDetailView ,book_list
 
 
 urlpatterns = [
@@ -24,5 +24,8 @@ urlpatterns = [
     path('edit/<int:pk>/', BookUpdateView.as_view(), name='edit_book'),
     path('delete/<int:pk>/', BookDeleteView.as_view(), name='delete_book'),
     path('details/<int:pk>/', BookDetailView.as_view(), name='book_details'),
+    
+    # api vith functions view
+    path('api/list/', book_list, name='book_list'),
 ]
 
