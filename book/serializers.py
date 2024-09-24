@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Book 
 
 
+'''
 status_books = [
     ('available', 'available'),
     ('rented', 'rented'),
@@ -43,7 +44,7 @@ class BookSerializer(serializers.Serializer):
         instance.status = validated_data.get('status', instance.status)
         instance.save()
         return instance
-
+'''
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:

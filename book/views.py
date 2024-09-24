@@ -132,3 +132,13 @@ class BookDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'book'
 
 
+# API Views with functions
+from .serializers import BookSerializer
+from rest_framework.response import Response
+from rest_framework import status
+
+
+def book_list(request):
+    book = Book.objects.all()
+    serializer = BookSerializer(book, many=True)
+    return Response(serializer.data)
