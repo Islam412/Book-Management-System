@@ -188,4 +188,18 @@ def book_detail(request, pk):
 
 
 # API with class based views
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
+from .serializers import BookSerializer
+
+
+class BookList(APIView):
+    """
+    List all book, or create a new book.
+    """
+    def get(self, request):
+        book = Book.objects.all()
+        serializer = BookSerializer(book, many=True)
+        return Response(serializer.data)
