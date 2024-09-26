@@ -175,7 +175,7 @@ def book_detail(request, pk):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-     elif request.method == 'PATCH': # scrol chosiess data
+    elif request.method == 'PATCH': # scrol chosiess data
         serializer = BookSerializer(book, data=request.data)
         if serializer.is_valid():
             serializer.save()
