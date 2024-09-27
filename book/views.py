@@ -69,9 +69,11 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.db.models import Q 
 
 from .models import Book
 from .forms import BookForm
+
 
 class BookListView(LoginRequiredMixin, ListView):
     model = Book
@@ -81,10 +83,8 @@ class BookListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         query = self.request.GET.get('search', '')
         return Book.objects.filter(
-            title__icontains=query
-        ) | Book.objects.filter(
-            author__icontains=query
-        )
+            Q(title__icontains=query) | Q(author__icontains=query)
+        ).distinct()
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -130,6 +130,7 @@ class BookDetailView(LoginRequiredMixin, DetailView):
     model = Book
     template_name = 'book/book_detail.html'
     context_object_name = 'book'
+
 
 
 # API Views with functions

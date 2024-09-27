@@ -174,9 +174,10 @@
                 
                 <!-- Search Form -->
                 <form class="d-flex ms-auto" role="search" method="get" action="">
+                    {% csrf_token %}
                     <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ query }}">
                     <button class="btn btn-outline-light" type="submit">Search</button>
-                </form>
+                </form>                
 
             </div>
         </div>
