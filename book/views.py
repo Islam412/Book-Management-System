@@ -226,4 +226,12 @@ class BookDetail(APIView):
         book = self.get_object(pk)
         serializer = BookSerializer(book)
         return Response(serializer.data)
-    
+
+    def put(self, request, pk):
+        book = self.get_object(pk)
+        serializer = BookSerializer(book, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ 
