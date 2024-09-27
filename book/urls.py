@@ -1,4 +1,6 @@
 from django.urls import path
+
+# urls off function off views
 # from .views import book, add_book, edit_book, delete_book, book_details
 
 app_name = 'book'
@@ -27,9 +29,9 @@ urlpatterns = [
     
     # api vith functions view
     path('api/list/', book_list, name='book_list'),
-    path('api/detail/<int:pk>/', book_detail, name='book_list'),
+    path('api/detail/<int:pk>/', book_detail, name='book_detail'),
     
     # api with class based view
-    path('api/book/', BookList.as_view, name='book_list'), 
+    path('api/book/', BookList.as_view(), name='book_list_views'), 
 ]
 
