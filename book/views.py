@@ -188,6 +188,7 @@ def book_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+
 # API with class based views
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -253,4 +254,36 @@ class BookDetail(APIView):
         book.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
  
+# API with generic class based views
+from rest_framework.generics import CreateAPIView, ListAPIView
+
+
+class BookListAPIViews(ListAPIView):
+    '''
+    def get(self, request):
+        book = Book.objects.all()
+        serializer = BookSerializer(book, many=True)
+        return Response(serializer.data)
+    '''
+    
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    
+    
+
+class BookCreateAPIView(CreateAPIView):
+    '''
+    def post(self, request):
+        book = BookSerializer(data=request.data)
+        if book.is_valid():
+            book.save()
+            return Response(book.data, status=status.HTTP_201_CREATED)
+        return Response(book.errors, status=status.HTTP_400_BAD_REQUEST)
+    '''
+    
+    serializer_class = BookSerializer
+    
+
+

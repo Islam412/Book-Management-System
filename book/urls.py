@@ -17,7 +17,7 @@ urlpatterns = [
 '''
 
 # urls off class based view
-from .views import BookListView, BookCreateView, BookUpdateView, BookDeleteView, BookDetailView ,book_list, book_detail , BookList, BookDetail
+from .views import BookListView, BookCreateView, BookUpdateView, BookDeleteView, BookDetailView ,book_list, book_detail , BookList, BookDetail, BookCreateAPIView, BookListAPIViews
 
 
 urlpatterns = [
@@ -34,5 +34,9 @@ urlpatterns = [
     # api with class based view
     path('api/book/', BookList.as_view(), name='book_list_views'),
     path('api/book/<int:pk>/', BookDetail.as_view(), name='book_detail_views'),
+    
+    # api with generic class based view
+    path('api/book/generic', BookCreateAPIView.as_view(), name='book_create_generic'),
+    path('api/book/generic/list', BookListAPIViews.as_view(), name='book_list_generic'),
 ]
 
