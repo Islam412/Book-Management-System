@@ -192,6 +192,8 @@ def book_detail(request, pk):
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.http import Http404
+
 
 from .serializers import BookSerializer
 
@@ -205,12 +207,14 @@ class BookList(APIView):
         serializer = BookSerializer(book, many=True)
         return Response(serializer.data)
 
+
     def post(self, request):
         book = BookSerializer(data=request.data)
         if book.is_valid():
             book.save()
             return Response(book.data, status=status.HTTP_201_CREATED)
         return Response(book.errors, status=status.HTTP_400_BAD_REQUEST)
+
     
 class BookDetail(APIView):
     """
@@ -227,6 +231,7 @@ class BookDetail(APIView):
         serializer = BookSerializer(book)
         return Response(serializer.data)
 
+
     def put(self, request, pk):
         book = self.get_object(pk)
         serializer = BookSerializer(book, data=request.data)
@@ -234,7 +239,15 @@ class BookDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+    def patch(self, request, pk):
+        book = self.get_object(pk)
+        serializer = BookSerializer(book, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
     def delete(self, request, pk):
         book = self.get_object(pk)
         book.delete()
