@@ -212,4 +212,18 @@ class BookList(APIView):
             return Response(book.data, status=status.HTTP_201_CREATED)
         return Response(book.errors, status=status.HTTP_400_BAD_REQUEST)
     
-
+class BookDetail(APIView):
+    """
+    Retrieve, update or delete a book instance.
+    """
+    def get_object(self, pk):
+        try:
+            return Book.objects.get(pk=pk)
+        except Book.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, pk):
+        book = self.get_object(pk)
+        serializer = BookSerializer(book)
+        return Response(serializer.data)
+    
