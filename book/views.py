@@ -234,4 +234,10 @@ class BookDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk):
+        book = self.get_object(pk)
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
  
