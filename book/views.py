@@ -257,7 +257,7 @@ class BookDetail(APIView):
 
  
 # API with generic class based views
-from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DeleteAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
 
 
 class BookListAPIViews(ListAPIView):
