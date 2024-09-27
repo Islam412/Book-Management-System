@@ -204,3 +204,12 @@ class BookList(APIView):
         book = Book.objects.all()
         serializer = BookSerializer(book, many=True)
         return Response(serializer.data)
+
+    def post(self, request):
+        book = BookSerializer(data=request.data)
+        if book.is_valid():
+            book.save()
+            return Response(book.data, status=status.HTTP_201_CREATED)
+        return Response(book.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
