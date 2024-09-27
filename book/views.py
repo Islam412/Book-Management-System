@@ -257,7 +257,7 @@ class BookDetail(APIView):
 
  
 # API with generic class based views
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DeleteAPIView, RetrieveAPIView
 
 
 class BookListAPIViews(ListAPIView):
@@ -267,7 +267,7 @@ class BookListAPIViews(ListAPIView):
         serializer = BookSerializer(book, many=True)
         return Response(serializer.data)
     '''
-    
+
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     
@@ -286,4 +286,26 @@ class BookCreateAPIView(CreateAPIView):
     serializer_class = BookSerializer
     
 
+class BookUpdateAPIView(UpdateAPIView):
+    '''
+    
+    def put(self, request, pk):
+        book = self.get_object(pk)
+        serializer = BookSerializer(book, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk):
+        book = self.get_object(pk)
+        serializer = BookSerializer(book, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    '''
+    
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
