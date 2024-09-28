@@ -150,6 +150,12 @@ LOGIN_URL = 'userauths:sign-up'
 LOGOUT_REDIRECT_URL = "userauths:sign-up"
 
 
+# Filter api setting
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
+
 # Jazzmin Configs
 JAZZMIN_SETTINGS = {
     'site_header': "Book Management System",
