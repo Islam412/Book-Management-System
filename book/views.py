@@ -194,6 +194,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 from .serializers import BookSerializer
@@ -270,6 +271,9 @@ class BookListAPIViews(ListAPIView):
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['title', 'author']
+
     
     
 
@@ -335,6 +339,7 @@ class BookRetrieveAPIView(RetrieveAPIView):
     serializer_class = BookSerializer
     
 
+# mix in generic class based views (update, delete, retrieve, create)
 class BookRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     '''
     def get_object(self, pk):

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Third party apps
     'django_bootstrap5',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
