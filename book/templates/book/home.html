@@ -1,5 +1,6 @@
-
 {% extends 'base.html' %}
+{% load static %}
+
 {% block body %}
 <head>
     <style>
@@ -109,7 +110,15 @@
             {% for book in books %}
 
                 <div class="card">
-                    <a href="{% url 'book:book_details' book.pk %}"><img src="{{ book.photo_book.url }}" style="width:306.9px; height:200px;" class="card-img-top" alt="Sample Image"></a>
+
+                    <a href="{% url 'book:book_details' book.pk %}">
+                        {% if book.photo_book %}
+                            <img src="{{ book.photo_book.url }}" style="width:306.9px; height:200px;" class="card-img-top" alt="Sample Image">
+                        {% else %}
+                            <img src="{% static 'path/to/default/image.jpg' %}" style="width:306.9px; height:200px;" class="card-img-top" alt="Default Image">
+                        {% endif %}
+                    </a>
+            
                     
                     <div class="card-body">
                         <a href="{% url 'book:book_details' book.pk %}" style="text-decoration: none;"><h5 class="card-title">{{book.title}}</h5></a>

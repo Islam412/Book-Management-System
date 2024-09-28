@@ -308,5 +308,18 @@ class BookUpdateAPIView(UpdateAPIView):
     
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    lookup_field = "id"  # run search
+    # lookup_field = "id"  # run search
+    
+
+class BookDeleteAPIView(DestroyAPIView):
+    '''
+    def delete(self, request, pk):
+        book = self.get_object(pk)
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    '''
+    
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    lookup_field = "id"
 
