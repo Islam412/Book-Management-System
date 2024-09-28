@@ -308,7 +308,7 @@ class BookUpdateAPIView(UpdateAPIView):
     
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    # lookup_field = "book_id"  # run search for url path defult pk
+    # lookup_field = "id"  # run search for url path defult pk
     
 
 class BookDeleteAPIView(DestroyAPIView):
@@ -321,5 +321,5 @@ class BookDeleteAPIView(DestroyAPIView):
     
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    lookup_field = "id"
+
 
