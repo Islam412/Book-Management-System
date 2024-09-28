@@ -344,6 +344,8 @@ class BookRetrieveAPIView(RetrieveAPIView):
     serializer_class = BookSerializer
     
 
+# IsAuthenticated and allow any token used at this class
+from rest_framework.permissions import IsAuthenticated, AllowAny
 # mix in generic class based views (update, delete, retrieve, create)
 class BookRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     '''
@@ -384,3 +386,5 @@ class BookRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     lookup_field = "id"
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
