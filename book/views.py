@@ -273,9 +273,11 @@ class BookListAPIViews(ListAPIView):
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
     filterset_fields = ['title']
     search_fields = ['title', 'author', 'descripition']
+    ordering_fields = ['title', 'author']
+
 
     
     
