@@ -257,7 +257,7 @@ class BookDetail(APIView):
 
  
 # API with generic class based views
-from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 
 
 class BookListAPIViews(ListAPIView):
@@ -333,3 +333,44 @@ class BookRetrieveAPIView(RetrieveAPIView):
     
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    
+
+class BookRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    '''
+    def get_object(self, pk):
+        try:
+            return Book.objects.get(pk=pk)
+        except Book.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, pk):
+        book = self.get_object(pk)
+        serializer = BookSerializer(book)
+        return Response(serializer.data)
+
+
+    def put(self, request, pk):
+        book = self.get_object(pk)
+        serializer = BookSerializer(book, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk):
+        book = self.get_object(pk)
+        serializer = BookSerializer(book, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    def delete(self, request, pk):
+        book = self.get_object(pk)
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    '''
+    
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    lookup_field = "id"
