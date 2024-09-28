@@ -195,6 +195,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+
 
 
 from .serializers import BookSerializer
@@ -271,8 +273,9 @@ class BookListAPIViews(ListAPIView):
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
     filterset_fields = ['title']
+    search_fields = ['title', 'author', 'descripition']
 
     
     
