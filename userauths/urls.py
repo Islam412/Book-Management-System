@@ -9,4 +9,8 @@ urlpatterns = [
     path('user/sign-out/', views.LogoutView.as_view(), name='sign-out'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('profile/edit/', views.ProfileUpdateView.as_view(), name='profile-edit'),
+    
+    # api 
+    path('api/<int:pk>/', views.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),
+    path('api/', views.UserListAPIView.as_view(), name='user_api_list'),
 ]

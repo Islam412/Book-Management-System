@@ -10,9 +10,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView
+
 from userauths.models import User , Profile
 from userauths.forms import UserRegisterForm , ProfileForm
-
+from userauths.serializers import UserSerializer , ProfileSerializer 
 
 
 
@@ -72,7 +75,6 @@ class LoginView(TemplateView):
             return redirect('book:book')
         return super().get(request, *args, **kwargs)
     
-
 class LogoutView(LoginRequiredMixin, TemplateView):
     template_name = 'userauths/logout.html'
 
@@ -80,7 +82,7 @@ class LogoutView(LoginRequiredMixin, TemplateView):
         logout(request)
         messages.success(request, 'You have been logged out')
         return redirect("userauths:sign-up")
-    
+
 
 class ProfileView(DetailView):
     model = Profile
@@ -89,7 +91,6 @@ class ProfileView(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(Profile, user=self.request.user)
-
 
 
 
@@ -104,5 +105,18 @@ class ProfileUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('userauths:profile')
+
+
+# Api with class based views
+class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    # permission_classes = [AllowAny]
+    
+class UserListAPIView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    # permission_classes = [AllowAny]
+    
 
 
