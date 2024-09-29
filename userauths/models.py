@@ -28,7 +28,7 @@ class Profile(models.Model):
 
     
     def __str__(self):
-        return self.user.username
+        return self.user.username if self.user and self.user.username else 'Unnamed Profile'
     
 @receiver(post_save, sender=User)
 # create user profile automatic

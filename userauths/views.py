@@ -11,7 +11,7 @@ from django.contrib import messages
 
 
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView ,CreateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView ,CreateAPIView, UpdateAPIView
 
 from userauths.models import User , Profile
 from userauths.forms import UserRegisterForm , ProfileForm
@@ -131,3 +131,7 @@ class ProfileListAPIView(ListAPIView):
 class ProfileCreateAPIView(CreateAPIView):
     serializer_class = ProfileSerializer
 
+    
+class ProfileUpdateAPIView(UpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = UserSerializer
