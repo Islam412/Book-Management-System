@@ -13,4 +13,5 @@ urlpatterns = [
     # api 
     path('api/<int:pk>/', views.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),
     path('api/', views.UserListAPIView.as_view(), name='user_api_list'),
+    path('api/create/', views.UserCreateAPIView.as_view(), name='user_api_create'),
 ]
