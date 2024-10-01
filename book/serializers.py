@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import Book 
 
 
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = '__all__'
+        # exclude = ['active']
+
 '''
 status_books = [
     ('available', 'available'),
@@ -46,8 +52,3 @@ class BookSerializer(serializers.Serializer):
         return instance
 '''
 
-class BookSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Book
-        fields = '__all__'
-        # exclude = ['active']

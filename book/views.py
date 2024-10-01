@@ -386,5 +386,5 @@ class BookRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     lookup_field = "id"
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
     # permission_classes = [IsAuthenticated]
